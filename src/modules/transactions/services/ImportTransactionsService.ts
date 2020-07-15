@@ -9,12 +9,14 @@ import CreateTransactionService from './CreateTransactionService';
 
 interface Request {
   filename: string;
+  user_id: string;
 }
 
 @injectable()
 class ImportTransactionsService {
   async execute({
-    filename
+    filename,
+    user_id
   }: Request): Promise<Transaction[]> {
     const createTransactionService = container.resolve(CreateTransactionService);
 
@@ -26,7 +28,7 @@ class ImportTransactionsService {
 
     for (const item of csvJson) {
       const { title, type, value, category } = item;
-      const transaction = await createTransactionService.execute({ title, value: parseFloat(value), type, category, user: "" });
+      const transaction = await createTransactionService.execute({ title, value: parseFloat(value), type, category, user_id });
       transactions.push(transaction);
     }
 

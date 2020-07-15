@@ -13,7 +13,7 @@ interface Request {
   value: number;
   type: "income" | "outcome";
   category: string;
-  user: string;
+  user_id: string;
 }
 
 @injectable()
@@ -33,7 +33,7 @@ class CreateTransactionService {
     value,
     type,
     category,
-    user
+    user_id
   }: Request): Promise<Transaction> {
 
     const categoryModel = await this.categoryRepository.findOne(category)
@@ -54,7 +54,7 @@ class CreateTransactionService {
       value,
       type,
       category_id: newCategory.id,
-      user_id: user
+      user_id
     })
 
     await this.repository.save(transaction);
