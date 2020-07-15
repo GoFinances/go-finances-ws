@@ -33,7 +33,17 @@ class TransactionRepository implements ITransactionRepository {
   }
 
   async findAll(): Promise<Transaction[] | undefined> {
-    const transactions = await this.repository.find();
+    const transactions = await this.repository.find({
+      select: [
+        "id",
+        "title",
+        "type",
+        "value",
+        "category_id",
+        "category"
+      ],
+      relations: ["category"]
+    });
     return transactions;
   }
 

@@ -16,13 +16,13 @@ export default class TransactionController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { title, value, type, category_id } = request.body;
+    const { title, value, type, category } = request.body;
     const user_id = request.user.id
 
     const createTransactionService = container.resolve(CreateTransactionService);
-    await createTransactionService.execute({ title, value, type, category: category_id, user_id });
+    await createTransactionService.execute({ title, value, type, category, user_id });
 
-    return response.json({ value, type, category_id, user_id });
+    return response.json({ value, type, category, user_id });
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {

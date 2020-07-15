@@ -11,7 +11,10 @@ import ICategoryRepository from '@modules/transactions/repositories/ICategoryRep
 import CategoryRepository from '@modules/transactions/infra/typeorm/repositories/CategoryRepository';
 
 
-
+container.registerSingleton<ICategoryRepository>(
+  'CategoryRepository',
+  CategoryRepository
+)
 
 container.registerSingleton<ITransactionRepository>(
   'TransactionRepository',

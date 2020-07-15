@@ -15,6 +15,7 @@ export default class CategoriesRepository implements ICategoriesRepository {
     const category = await this.repository.findOne(id);
     return category;
   }
+
   async findOne(title: string): Promise<Category | undefined> {
     const category = await this.repository.findOne({
       where: { title }
