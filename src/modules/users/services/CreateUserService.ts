@@ -28,7 +28,7 @@ export default class CreateUSerService {
     const checkUserExist = await this.repository.findByEmail(email);
 
     if (checkUserExist)
-      throw new AppError("This appointment is already booked")
+      throw new AppError("E-mail já cadastrado.")
 
     const hasPassword = await hash(password, 8)
 
