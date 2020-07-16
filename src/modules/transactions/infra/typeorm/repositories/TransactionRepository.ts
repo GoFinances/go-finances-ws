@@ -40,7 +40,8 @@ class TransactionRepository implements ITransactionRepository {
         "type",
         "value",
         "category_id",
-        "category"
+        "category",
+        "created_at"
       ],
       relations: ["category"]
     });

@@ -9,7 +9,6 @@ interface Request {
   name: string;
   email: string;
   password: string;
-  phone: number;
 }
 
 @injectable()
@@ -23,8 +22,7 @@ export default class CreateUSerService {
   public async execute({
     name,
     email,
-    password,
-    phone
+    password
   }: Request): Promise<User> {
 
     const checkUserExist = await this.repository.findByEmail(email);
@@ -37,8 +35,7 @@ export default class CreateUSerService {
     const user = await this.repository.create({
       name,
       email,
-      password: hasPassword,
-      phone
+      password: hasPassword
     })
 
     return user;

@@ -14,9 +14,6 @@ export default class User {
   email: string;
 
   @Column()
-  phone: number;
-
-  @Column()
   password: string;
 
   @Column()
