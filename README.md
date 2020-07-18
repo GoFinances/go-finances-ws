@@ -2,8 +2,7 @@
 
 ## Iniciando a API Node.js (back-end)
 
-1. Entre na pasta "beckend" e pelo terminal, instale as dependências com o comando:
-## Instalando postgres com Docker
+1. Instalando postgres com Docker
 
 ```shell
 docker run \
