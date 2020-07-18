@@ -1,6 +1,9 @@
 # GO-FINANCE
 
-## Instalando docker para usar o Postgres
+## Iniciando a API Node.js (back-end)
+
+1. Entre na pasta "beckend" e pelo terminal, instale as dependências com o comando:
+## Instalando postgres com Docker
 
 ```shell
 docker run \
@@ -13,12 +16,32 @@ docker run \
     postgres
 ```
 
-## Acessando container
-psql -h localhost -p 5432 -d gofinance -U douglasgmsantos -W
+2. Crie um arquivo "ormconfig.json" e configure os bancos:
+```json
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "douglasgmsantos",
+  "password": "123456",
+  "database": "gofinance",
+  "entities": [
+    "./src/modules/**/infra/typeorm/entities/*.ts"
+  ],
+  "migrations": [
+    "./src/shared/infra/typeorm/migrations/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "./src/shared/infra/typeorm/migrations/"
+  }
+}
+```
 
-## Scripts de auxilio 
-SELECT * FROM pg_extension where extname = 'uuid-ossp';
- - caso não exista registro: CREATE EXTENSION "uuid-ossp";
-
-## Migrations 
-- yarn typeorm migration:run
+3. Execute as migrations com o comando:
+```
+yarn typeorm migration:run
+```
+4. Por último, execute o comando abaixo para iniciar a API:
+```
+yarn dev:server
+```
