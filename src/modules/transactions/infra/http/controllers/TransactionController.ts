@@ -9,8 +9,9 @@ import GetTransactionService from '@modules/transactions/services/GetTransaction
 export default class TransactionController {
 
   public async index(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id
     const getTransactionService = container.resolve(GetTransactionService);
-    var transactions = await getTransactionService.execute();
+    var transactions = await getTransactionService.execute({ user_id: user_id });
 
     return response.json(transactions);
   }
@@ -27,8 +28,10 @@ export default class TransactionController {
 
   public async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
+    const user_id = request.user.id
+
     const deleteTransactionService = container.resolve(DeleteTransactionService);
-    await deleteTransactionService.execute({ id });
+    await deleteTransactionService.execute({ id, user_id: user_id });
 
     return response
       .status(204)

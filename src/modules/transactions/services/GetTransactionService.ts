@@ -10,6 +10,10 @@ interface IResponse {
   balance: Balance
 }
 
+interface IRequest {
+  user_id: string;
+}
+
 @injectable()
 class GetTransactionService {
 
@@ -18,9 +22,9 @@ class GetTransactionService {
     private repository: ITransactionRepository
   ) { }
 
-  public async execute(): Promise<IResponse> {
-    var transactions = await this.repository.findAll();
-    var balance = await this.repository.getBalance();
+  public async execute({ user_id }: IRequest): Promise<IResponse> {
+    var transactions = await this.repository.findAll(user_id);
+    var balance = await this.repository.getBalance(user_id);
 
     return {
       transactions,

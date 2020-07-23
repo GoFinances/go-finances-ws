@@ -7,6 +7,7 @@ import ITransactionRepository from '../repositories/ITransactionRepository';
 
 interface Request {
   id: string;
+  user_id: string
 }
 
 @injectable()
@@ -17,9 +18,10 @@ class DeleteTransactionService {
   ) { }
 
   public async execute({
-    id
+    id,
+    user_id
   }: Request): Promise<void> {
-    const transaction = await this.repository.findById(id);
+    const transaction = await this.repository.findById(id, user_id);
 
     if (!transaction)
       throw new AppError("Transação não foi encontrada.")

@@ -14,8 +14,12 @@ class TransactionRepository implements ITransactionRepository {
     this.repository = getRepository(Transaction);
   }
 
-  public async getBalance(): Promise<Balance> {
-    var transactions = await this.repository.find()
+  public async getBalance(user_id: string): Promise<Balance> {
+    var transactions = await this.repository.find({
+      where: {
+        user_id
+      }
+    })
 
     const income = transactions
       .filter(transaction => transaction.type == "income")
@@ -32,7 +36,7 @@ class TransactionRepository implements ITransactionRepository {
     }
   }
 
-  async findAll(): Promise<Transaction[] | undefined> {
+  async findAll(id: string): Promise<Transaction[] | undefined> {
     const transactions = await this.repository.find({
       select: [
         "id",
@@ -43,13 +47,24 @@ class TransactionRepository implements ITransactionRepository {
         "category",
         "created_at"
       ],
-      relations: ["category"]
+      relations: ["category"],
+      where: {
+        user_id: id
+      },
+      order: {
+        created_at: "DESC"
+      }
+
     });
     return transactions;
   }
 
-  async findById(id: string): Promise<Transaction | undefined> {
-    const transaction = await this.repository.findOne(id);
+  async findById(id: string, user_id: string): Promise<Transaction | undefined> {
+    const transaction = await this.repository.findOne(id, {
+      where: {
+        user_id
+      }
+    });
     return transaction;
   }
 
