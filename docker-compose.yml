@@ -1,9 +1,28 @@
 version: '3.3'
 services:
+  postgres:
+      restart: always
+      container_name: postgres
+      image: postgres
+      environment:
+        - POSTGRES_USER=douglasgmsantos
+        - POSTGRES_PASSWORD=123456
+        - POSTGRES_DB=gofinance
+      ports:
+        - '54322:5432'
   go-finanace-ws:
+      restart: always
       container_name: go-finanace-ws
       image: node:12-alpine
       volumes:
         - ./:/app
         - /app/node_modules
-      command: sh -c "cd /app/ && rm -rf /node_modules && yarn install && yarn typeorm migration:run && yarn dev:server"
+      command: sh -c "cd /app/ && yarn install && yarn typeorm migration:run && yarn dev:server"
+      depends_on:
+        - postgres
+      ports:
+        - '3333:3333'
+      links:
+        - postgres
+
+
