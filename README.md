@@ -36,11 +36,7 @@ docker run \
 }
 ```
 
-3. Execute as migrations com o comando:
+3. Execute o comando:
 ```
-yarn typeorm migration:run
-```
-4. Por último, execute o comando abaixo para iniciar a API:
-```
-yarn dev:server
+yarn install && yarn typeorm migration:run && yarn dev:server
 ```
