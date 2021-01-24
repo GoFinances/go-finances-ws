@@ -1,0 +1,9 @@
+version: '3.3'
+services:
+  go-finanace-ws:
+      container_name: go-finanace-ws
+      image: node:12-alpine
+      volumes:
+        - ./:/app
+        - /app/node_modules
+      command: sh -c "cd /app/ && rm -rf /node_modules && yarn install && yarn typeorm migration:run && yarn dev:server"
