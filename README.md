@@ -38,5 +38,5 @@ docker run \
 
 3. Execute o comando:
 ```
-yarn dev:server && yarn typeorm migration:run && yarn dev:server
+yarn install && yarn typeorm migration:run && yarn dev:server
 ```
