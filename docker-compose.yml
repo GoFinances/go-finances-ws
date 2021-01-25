@@ -1,10 +1,5 @@
 version: '3.3'
 
-networks:
-  dev:
-    external:
-      name: go-finance-dev-network
-
 services:
   go-finanace-ws:
     container_name: 'go-finanace-ws'
@@ -12,7 +7,7 @@ services:
     volumes:
       - ./:/app
       - /app/node_modules
-    command: sh -c "cd /app/ && yarn install && yarn typeorm migration:run && yarn dev:server"
+    command: sh -c "cd /app/ && yarn install && yarn typeorm migration:revert && yarn typeorm migration:run && yarn dev:server"
     depends_on:
       - postgres
     ports:
@@ -20,6 +15,7 @@ services:
     links:
       - postgres
   postgres:
+    restart: always
     container_name: 'postgres'
     image: postgres
     environment:

@@ -1,12 +1,12 @@
 import AppError from '@shared/errors/AppError';
 
 import Transaction from '../infra/typeorm/entities/Transaction';
-import Category from '../infra/typeorm/entities/Category';
 
 import ITransactionRepository from '../repositories/ITransactionRepository';
-import ICategoryRepository from '../repositories/ICategoryRepository';
+import ICategoriesRepository from '@modules/categories/repositories/ICategoriesRepository';
 
 import { inject, injectable } from 'tsyringe';
+import Category from '@modules/categories/infra/typeorm/entities/Category';
 
 interface Request {
   title: string;
@@ -24,7 +24,7 @@ class CreateTransactionService {
     private repository: ITransactionRepository,
 
     @inject("CategoryRepository")
-    private categoryRepository: ICategoryRepository,
+    private categoryRepository: ICategoriesRepository,
 
   ) { }
 

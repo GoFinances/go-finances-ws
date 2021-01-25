@@ -5,6 +5,7 @@
   "username": "douglasgmsantos",
   "password": "123456",
   "database": "gofinance",
+  "logging": true,
   "entities": [
     "./src/modules/**/infra/typeorm/entities/*.ts"
   ],

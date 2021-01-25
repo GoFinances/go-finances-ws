@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToOne, JoinColumn, ManyToOne } from "typeorm";
-import Category from "./Category";
 import User from "@modules/users/infra/typeorm/entities/User";
+import Category from "@modules/categories/infra/typeorm/entities/Category";
 
 @Entity("transactions")
 class Transaction {

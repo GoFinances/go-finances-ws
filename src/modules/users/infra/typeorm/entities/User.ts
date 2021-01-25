@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm'
 import Transaction from '@modules/transactions/infra/typeorm/entities/Transaction';
+import Category from '@modules/categories/infra/typeorm/entities/Category';
 
 @Entity('users')
 export default class User {
@@ -21,6 +22,9 @@ export default class User {
 
   @OneToMany(() => Transaction, transaction => transaction.user)
   transaction: Transaction;
+
+  @OneToMany(() => Category, category => category.user)
+  category: Category;
 
   @CreateDateColumn()
   created_at: Date;

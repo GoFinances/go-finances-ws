@@ -7,8 +7,8 @@ import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepo
 import ITransactionRepository from '@modules/transactions/repositories/ITransactionRepository';
 import TransactionRepository from '@modules/transactions/infra/typeorm/repositories/TransactionRepository';
 
-import ICategoryRepository from '@modules/transactions/repositories/ICategoryRepository';
-import CategoryRepository from '@modules/transactions/infra/typeorm/repositories/CategoryRepository';
+import ICategoryRepository from '@modules/categories/repositories/ICategoriesRepository';
+import CategoryRepository from '@modules/categories/infra/typeorm/repositories/CategoryRepository';
 
 
 container.registerSingleton<ICategoryRepository>(
