@@ -1,42 +1,14 @@
 # GO-FINANCE
 
-## Iniciando a API Node.js (back-end)
+## Iniciando o web-services em node-js utilizando o docker.
 
-1. Instalando postgres com Docker
-
-```shell
-docker run \
-    --name postgres \
-    -e POSTGRES_USER=douglasgmsantos \
-    -e POSTGRES_PASSWORD=123456 \
-    -e POSTGRES_DB=gofinance \
-    -p 5432:5432 \
-    -d \
-    postgres
+1. Confirme se existe instalado o docker na sua máquina:
+```
+docker --version
 ```
 
-2. Crie um arquivo "ormconfig.json" e configure os bancos:
-```json
-{
-  "type": "postgres",
-  "host": "localhost",
-  "port": 5432,
-  "username": "douglasgmsantos",
-  "password": "123456",
-  "database": "gofinance",
-  "entities": [
-    "./src/modules/**/infra/typeorm/entities/*.ts"
-  ],
-  "migrations": [
-    "./src/shared/infra/typeorm/migrations/*.ts"
-  ],
-  "cli": {
-    "migrationsDir": "./src/shared/infra/typeorm/migrations/"
-  }
-}
+2. Com o docker instalado execute o comando:
+```
+docker-compose up
 ```
 
-3. Execute o comando:
-```
-yarn install && yarn typeorm migration:run && yarn dev:server
-```
