@@ -2,7 +2,7 @@ import { Repository, getRepository } from 'typeorm';
 
 import ICategoriesRepository from '@modules/categories/repositories/ICategoriesRepository';
 
-import ICreateCategoryDTO from '@modules/transactions/dtos/ICreateCategoryDTO';
+import ICreateCategoryDTO from '@modules/categories/dtos/ICreateCategoryDTO';
 import Category from '../entities/Category';
 
 export default class CategoriesRepository implements ICategoriesRepository {
@@ -14,7 +14,17 @@ export default class CategoriesRepository implements ICategoriesRepository {
 
   async findAll(user_id: string): Promise<Category[] | undefined> {
     const category = await this.repository.find({
-      where: { user_id }
+      select: [
+        "id",
+        "title",
+        "icon",
+        "background_color_dark",
+        "background_color_light",
+      ],
+      where: { user_id },
+      order: {
+        created_at: "DESC"
+      }
     })
 
     return category;
@@ -22,13 +32,30 @@ export default class CategoriesRepository implements ICategoriesRepository {
 
   async findById(user_id: string, id: string): Promise<Category | undefined> {
     const category = await this.repository.findOne(id, {
-      where: { user_id }
+      select: [
+        "id",
+        "title",
+        "icon",
+        "background_color_dark",
+        "background_color_light",
+      ],
+      where: { user_id },
+      order: {
+        created_at: "DESC"
+      }
     });
     return category;
   }
 
   async findOne(user_id: string, title: string): Promise<Category | undefined> {
     const category = await this.repository.findOne({
+      select: [
+        "id",
+        "title",
+        "icon",
+        "background_color_dark",
+        "background_color_light",
+      ],
       where: { user_id, title }
     });
     return category;

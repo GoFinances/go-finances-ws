@@ -3,5 +3,5 @@ export default interface ICreateCategoryDTO {
   icon: string;
   background_color_dark: string;
   background_color_light: string;
-  user_id: string;
+  user_id: string | undefined;
 }

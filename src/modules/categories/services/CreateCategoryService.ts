@@ -12,10 +12,6 @@ interface IRequest {
   user_id: string;
 }
 
-interface IResponse {
-  category: Category
-}
-
 @injectable()
 class CreateCategoryService {
 
@@ -25,8 +21,8 @@ class CreateCategoryService {
   ) { }
 
   public async execute({
-    title,
     user_id,
+    title,
     icon,
     background_color_dark,
     background_color_light
@@ -37,11 +33,11 @@ class CreateCategoryService {
       throw new AppError("Essa categoria já existe")
 
     const category = await this.repository.create({
+      user_id,
       title,
       icon,
       background_color_dark,
       background_color_light,
-      user_id,
     })
 
     await this.repository.save(category);

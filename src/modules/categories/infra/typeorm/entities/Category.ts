@@ -29,7 +29,7 @@ class Category {
   user: User;
 
   @Column({ name: 'user_id' })
-  user_id: number;
+  user_id: string;
 
   @CreateDateColumn()
   created_at: Date;

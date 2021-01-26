@@ -36,14 +36,14 @@ class CreateTransactionService {
     user_id
   }: Request): Promise<Transaction> {
 
-    const categoryModel = await this.categoryRepository.findOne(category)
+    const categoryModel = await this.categoryRepository.findOne(user_id, category)
     var balance = await this.repository.getBalance(user_id);
     if (value > balance.total && type == "outcome")
       throw new AppError("Não possível fazer uma retirada com o valor solicitado.")
 
     var newCategory: Category;
     if (!categoryModel) {
-      newCategory = await this.categoryRepository.create({ title: category });
+      newCategory = await this.categoryRepository.create({ user_id, title: category, background_color_dark: "#000", background_color_light: "#000", icon: "" });
       await this.categoryRepository.save(newCategory);
     } else {
       newCategory = categoryModel;

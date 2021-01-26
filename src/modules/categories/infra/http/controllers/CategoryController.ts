@@ -13,7 +13,7 @@ export default class CategoryController {
     const getCategoryService = container.resolve(GetCategoryService);
     var categories = await getCategoryService.execute({ user_id: user_id });
 
-    return response.json(categories);
+    return response.json(categories.categories);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {

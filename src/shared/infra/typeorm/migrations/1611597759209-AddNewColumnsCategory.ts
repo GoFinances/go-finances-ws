@@ -9,7 +9,7 @@ export class AddNewColumnsCategory1611597759209 implements MigrationInterface {
         new TableColumn({ isNullable: true, name: 'icon', type: 'varchar' }),
         new TableColumn({ isNullable: true, name: 'background_color_dark', type: 'varchar' }),
         new TableColumn({ isNullable: true, name: 'background_color_light', type: 'varchar' }),
-        new TableColumn({ name: 'user_id', type: 'uuid' }),
+        new TableColumn({ isNullable: true, name: 'user_id', type: 'uuid' }),
       ],
     );
 
