@@ -43,7 +43,14 @@ class CreateTransactionService {
 
     var newCategory: Category;
     if (!categoryModel) {
-      newCategory = await this.categoryRepository.create({ user_id, title: category, background_color_dark: "#000", background_color_light: "#000", icon: "" });
+      newCategory = await this.categoryRepository.create({
+        user_id,
+        title: category,
+        background_color_dark: "#FFF",
+        background_color_light: "#5636d3",
+        icon: "Fa/FaMoneyBillAlt"
+      });
+
       await this.categoryRepository.save(newCategory);
     } else {
       newCategory = categoryModel;

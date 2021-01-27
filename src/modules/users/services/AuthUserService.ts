@@ -32,12 +32,12 @@ export default class AuthUserService {
     const user = await this.repository.findByEmail(email);
 
     if (!user)
-      throw new AppError("Incorrect email/password combination.", 401)
+      throw new AppError("Combinação de e-mail/senha incorreto, por gentileza tente novamente.")
 
     const passwordMatched = await compare(password, user.password);
 
     if (!passwordMatched)
-      throw new AppError("Incorrect email/password combination.", 401)
+      throw new AppError("Combinação de e-mail/senha incorreto, por gentileza tente novamente.")
 
     const { expiresIn, secret } = authConfig.jwt;
     const token = sign({}, secret, {

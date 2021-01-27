@@ -16,7 +16,7 @@ export default function ensureAuthenticated(request: Request, response: Response
   const authHeader = request.headers.authorization;
 
   if (!authHeader)
-    throw new AppError("Token não encontrado.", 401)
+    throw new AppError("Token não encontrado.")
 
   const { secret } = authConfig.jwt;
   const [, token] = authHeader.split(' ');
@@ -31,7 +31,7 @@ export default function ensureAuthenticated(request: Request, response: Response
 
     return next();
   } catch {
-    throw new AppError('Invalid JWT token', 401)
+    throw new AppError('Token invalído.')
   }
 
 }

@@ -3,10 +3,6 @@ import ICategoriesRepository from '../repositories/ICategoriesRepository';
 import { inject, injectable } from 'tsyringe';
 import Category from '../infra/typeorm/entities/Category';
 
-interface IResponse {
-  categories: Category[]
-}
-
 interface IRequest {
   user_id: string;
 }
@@ -19,13 +15,9 @@ class GetTransactionService {
     private repository: ICategoriesRepository
   ) { }
 
-  public async execute({ user_id }: IRequest): Promise<IResponse> {
+  public async execute({ user_id }: IRequest): Promise<Category[] | undefined> {
     var categories = await this.repository.findAll(user_id);
-
-    return {
-      categories
-    } as IResponse
-
+    return categories;
   }
 }
 

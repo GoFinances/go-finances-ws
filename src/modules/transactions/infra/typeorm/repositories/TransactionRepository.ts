@@ -59,6 +59,30 @@ class TransactionRepository implements ITransactionRepository {
     return transactions;
   }
 
+  async findByCategoryId(category_id: string, user_id: string): Promise<Transaction[] | undefined> {
+    const transactions = await this.repository.find({
+      select: [
+        "id",
+        "title",
+        "type",
+        "value",
+        "category_id",
+        "category",
+        "created_at"
+      ],
+      relations: ["category"],
+      where: {
+        user_id: user_id,
+        category_id
+      },
+      order: {
+        created_at: "DESC"
+      }
+    });
+
+    return transactions;
+  }
+
   async findById(id: string, user_id: string): Promise<Transaction | undefined> {
     const transaction = await this.repository.findOne(id, {
       where: {

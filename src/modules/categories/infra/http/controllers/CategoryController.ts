@@ -13,7 +13,7 @@ export default class CategoryController {
     const getCategoryService = container.resolve(GetCategoryService);
     var categories = await getCategoryService.execute({ user_id: user_id });
 
-    return response.json(categories.categories);
+    return response.json({ success: true, result: categories });
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
@@ -24,7 +24,7 @@ export default class CategoryController {
     const createCategoryService = container.resolve(CreateCategoryService);
     var category = await createCategoryService.execute({ title, icon, background_color_dark, background_color_light, user_id });
 
-    return response.json({ category });
+    return response.json({ success: true, result: category });
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
@@ -34,9 +34,7 @@ export default class CategoryController {
     const deleteCategoryService = container.resolve(DeleteCategoryService);
     await deleteCategoryService.execute({ id, user_id });
 
-    return response
-      .status(204)
-      .json()
+    return response.json({ success: true })
   }
 
 

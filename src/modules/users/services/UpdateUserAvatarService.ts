@@ -25,7 +25,7 @@ export default class UpdateUserAvatarService {
 
     const user = await this.repository.findById(user_id);
     if (!user)
-      throw new AppError("Only authenticated users can changes avatar", 401);
+      throw new AppError("Apenas usuários autenticados podem alterar o avatar.");
 
     if (user.avatar) {
       const userAvatarFilePath = path.join(uploadConfig.directory, user.avatar);

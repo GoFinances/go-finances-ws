@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 import ICategoriesRepository from '../repositories/ICategoriesRepository';
+import ITransactionRepository from '@modules/transactions/repositories/ITransactionRepository';
 
 interface Request {
   id: string;
@@ -12,13 +13,19 @@ interface Request {
 class DeleteCategoryService {
   constructor(
     @inject("CategoryRepository")
-    private repository: ICategoriesRepository
+    private repository: ICategoriesRepository,
+
+    @inject("TransactionRepository")
+    private transactionPepository: ITransactionRepository
   ) { }
 
   public async execute({ id, user_id }: Request): Promise<void> {
-    const category = await this.repository.findById(user_id, id);
+    const transactions = await this.transactionPepository.findByCategoryId(id, user_id);
 
-    console.log("category", category)
+    if (transactions.length)
+      throw new AppError("Não é possível excluir uma categoria vinculada a uma transação.")
+
+    const category = await this.repository.findById(user_id, id);
     if (!category)
       throw new AppError("Transação não foi encontrada.")
 

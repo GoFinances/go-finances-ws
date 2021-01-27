@@ -13,7 +13,10 @@ export default class TransactionController {
     const getTransactionService = container.resolve(GetTransactionService);
     var transactions = await getTransactionService.execute({ user_id: user_id });
 
-    return response.json(transactions);
+    return response.json({
+      success: true,
+      result: transactions
+    });
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
@@ -23,7 +26,7 @@ export default class TransactionController {
     const createTransactionService = container.resolve(CreateTransactionService);
     await createTransactionService.execute({ title, value, type, category, user_id });
 
-    return response.json({ value, type, category, user_id });
+    return response.json({ success: true, result: { value, type, category } });
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
@@ -34,8 +37,7 @@ export default class TransactionController {
     await deleteTransactionService.execute({ id, user_id: user_id });
 
     return response
-      .status(204)
-      .json()
+      .json({ success: true })
   }
 
   public async import(request: Request, response: Response): Promise<Response> {
@@ -43,7 +45,10 @@ export default class TransactionController {
     const user_id = request.user.id
 
     var transactions = await importTransactionsService.execute({ filename: request.file.filename, user_id });
-    return response.json(transactions)
+    return response.json({
+      success: true,
+      result: transactions
+    })
   }
 
 

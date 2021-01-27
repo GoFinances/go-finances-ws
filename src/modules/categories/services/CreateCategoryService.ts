@@ -28,22 +28,25 @@ class CreateCategoryService {
     background_color_light
   }: IRequest): Promise<Category> {
 
-    const categoryFind = await this.repository.findOne(user_id, title)
-    if (Boolean(categoryFind))
-      throw new AppError("Essa categoria já existe")
+    const categoryFind = await this.repository.findOne(user_id, title);
+    var newCategory;
 
-    const category = await this.repository.create({
-      user_id,
-      title,
-      icon,
-      background_color_dark,
-      background_color_light,
-    })
+    if (Boolean(categoryFind)) {
+      newCategory = { ...categoryFind, background_color_dark, background_color_light, icon }
+    } else {
+      newCategory = await this.repository.create({
+        user_id,
+        title,
+        icon,
+        background_color_dark,
+        background_color_light,
+      })
 
-    await this.repository.save(category);
-    delete category.user
+    }
 
-    return category;
+
+    await this.repository.save(newCategory as Category);
+    return newCategory as Category;
   }
 }
 
