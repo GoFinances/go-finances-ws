@@ -22,7 +22,7 @@ class DeleteCategoryService {
   public async execute({ id, user_id }: Request): Promise<void> {
     const transactions = await this.transactionPepository.findByCategoryId(id, user_id);
 
-    if (transactions.length)
+    if (transactions && transactions.length)
       throw new AppError("Não é possível excluir uma categoria vinculada a uma transação.")
 
     const category = await this.repository.findById(user_id, id);

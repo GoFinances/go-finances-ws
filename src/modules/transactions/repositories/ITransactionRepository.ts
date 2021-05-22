@@ -6,7 +6,7 @@ import Balance from "../infra/typeorm/entities/Balance";
 export default interface ITransactionRepository {
   findAll(id: string): Promise<Transaction[] | undefined>;
   findById(id: string, user_id: string): Promise<Transaction | undefined>;
-  findByCategoryId(category_id: string, user_id: string): Promise<Transaction[]>;
+  findByCategoryId(category_id: string, user_id: string): Promise<Transaction[] | undefined>;
   findOne(email: string, user_id: string): Promise<Transaction | undefined>;
   create(data: ICreateTransactionDTO): Promise<Transaction>;
   save(transaction: Transaction): Promise<Transaction>;
