@@ -13,4 +13,9 @@ export default class SessionsController {
     delete user.password;
     return response.json({ success: true, result: { user, token } });
   }
+
+  public async checkSession(request: Request, response: Response): Promise<Response> {
+    return response.json({ success: true, result: true });
+  }
+
 }
