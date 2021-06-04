@@ -13,13 +13,16 @@ interface TokenPayload {
 
 
 export default function ensureAuthenticated(request: Request, response: Response, next: NextFunction): void {
-  const authHeader = request.headers.authorization;
+  const { authorization } = request.headers;
 
-  if (!authHeader)
-    throw new AppError("Token não encontrado.")
+  if (!authorization)
+    throw new AppError("Sessão finalizada.", 401, "TOKEN_INVALID")
 
+  const [, token] = authorization.split(' ');
   const { secret } = authConfig.jwt;
-  const [, token] = authHeader.split(' ');
+
+  if (!token)
+    throw new AppError("Sessão finalizada.", 401, "TOKEN_INVALID")
 
   try {
     const decoded = verify(token, secret);
@@ -30,8 +33,8 @@ export default function ensureAuthenticated(request: Request, response: Response
     }
 
     return next();
-  } catch {
-    throw new AppError('Token invalído.')
-  }
 
+  } catch {
+    throw new AppError("Sessão expirou.", 401, "TOKEN_EXPIRED")
+  }
 }
