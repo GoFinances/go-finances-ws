@@ -42,5 +42,5 @@ jobs:
             cd ~/app/gofinances
             yarn
             ./node_modules/.bin/typeorm migration:run
-            pm2 restart gofinances_api
+            pm2 restart gofinance_api
 
