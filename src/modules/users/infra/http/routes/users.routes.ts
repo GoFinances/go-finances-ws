@@ -14,4 +14,5 @@ const userAvatarController = new UserAvatarController();
 usersRouter.post("/", controller.create);
 usersRouter.patch("/avatar", ensureAuthenticated, upload.single('avatar'), userAvatarController.update);
 
+
 export default usersRouter;
