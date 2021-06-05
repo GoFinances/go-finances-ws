@@ -1,5 +1,5 @@
 import path from 'path'
-import multer = require("multer");
+import multer from 'multer';
 
 const tmpFolder = path.resolve(__dirname, "..", "..", "tmp");
 

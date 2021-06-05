@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import multer = require('multer');
+import multer from 'multer';
 
 import uploadConfig from '@config/upload';
 import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';

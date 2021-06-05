@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import multer = require('multer');
+import multer from 'multer';
 
 import uploadConfig from '@config/upload';
 import TransactionsController from '@modules/transactions/infra/http/controllers/TransactionController'
