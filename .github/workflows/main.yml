@@ -39,7 +39,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }} 
           script: |
-            cd ~/app/gofinances
+            cd ~/app/go-finances-ws
             yarn
             ./node_modules/.bin/typeorm migration:run
             pm2 restart gofinance_api
