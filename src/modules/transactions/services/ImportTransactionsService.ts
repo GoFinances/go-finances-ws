@@ -1,7 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import csv from 'csvtojson';
-import { container, injectable } from 'tsyringe';
+import { container, injectable, inject } from 'tsyringe';
+
+import { IStorageProvider } from '@shared/container/providers/storage/IStorageProvider';
 
 import uploadConfig from '@config/upload';
 import Transaction from '../infra/typeorm/entities/Transaction';
@@ -14,6 +16,13 @@ interface Request {
 
 @injectable()
 class ImportTransactionsService {
+
+  constructor(
+    @inject("StorageProvider")
+    private storageProvide: IStorageProvider
+
+  ) { }
+
   async execute({
     filename,
     user_id

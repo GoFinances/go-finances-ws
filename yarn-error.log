@@ -1,30 +1,30 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.16.0/libexec/bin/yarn.js add @typings/express -D
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.22.10/libexec/bin/yarn.js add @babel/cli @babel/core @babel/node @babel/plugin-propsal-class-properties @babel/plugin-proposal-decorators babel/preset-env babel-plugin-module-resolver babel-plugin-transform-typescript-metadata -D
 
 PATH: 
-  /Users/douglassantos/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/douglassantos/.bin:/Users/douglassantos/Android/Sdk/tools:/Users/douglassantos/Android/Sdk/platform-tool:/snap/bin:/Users/douglassantos/Android/Sdk/tools:/Users/douglassantos/Android/Sdk/platform-tool:/Users/douglassantos/.bin:/snap/bin
+  /Users/douglassantos/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/Library/Apple/usr/bin:/Users/douglassantos/.bin:/Users/douglassantos/Android/Sdk/tools:/Users/douglassantos/Android/Sdk/platform-tool:/snap/bin:/Users/douglassantos/Android/Sdk/tools:/Users/douglassantos/Android/Sdk/platform-tool:/Users/douglassantos/.bin:/snap/bin
 
 Yarn version: 
-  1.16.0
+  1.22.10
 
 Node version: 
-  10.16.0
+  15.12.0
 
 Platform: 
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@typings%2fexpress: Not found
-      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:66091:18)
-      at Request.self.callback (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:129590:22)
-      at Request.emit (events.js:198:13)
-      at Request.<anonymous> (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:130562:10)
-      at Request.emit (events.js:198:13)
-      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.16.0/libexec/lib/cli.js:130484:12)
-      at Object.onceWrapper (events.js:286:20)
-      at IncomingMessage.emit (events.js:203:15)
-      at endReadableNT (_stream_readable.js:1129:12)
-      at process._tickCallback (internal/process/next_tick.js:63:19)
+  Error: https://registry.yarnpkg.com/@babel%2fplugin-propsal-class-properties: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:66988:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:140749:22)
+      at Request.emit (node:events:369:20)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:141721:10)
+      at Request.emit (node:events:369:20)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.22.10/libexec/lib/cli.js:141643:12)
+      at Object.onceWrapper (node:events:475:28)
+      at IncomingMessage.emit (node:events:381:22)
+      at endReadableNT (node:internal/streams/readable:1307:12)
+      at processTicksAndRejections (node:internal/process/task_queues:81:21)
 
 npm manifest: 
   {
@@ -42,13 +42,14 @@ npm manifest:
     "dependencies": {
       "@typescript-eslint/eslint-plugin": "^2.28.0",
       "@typescript-eslint/parser": "^2.28.0",
-      "aws-sdk": "^2.685.0",
+      "aws-sdk": "^2.922.0",
       "bcryptjs": "^2.4.3",
       "celebrate": "^12.1.1",
       "class-transformer": "^0.2.3",
       "cors": "^2.8.5",
+      "csvtojson": "^2.0.10",
       "date-fns": "^2.12.0",
-      "dotenv": "^8.2.0",
+      "dotenv": "^10.0.0",
       "eslint-config-airbnb-base": "^14.1.0",
       "eslint-plugin-import": "2.20.1",
       "express": "^4.17.1",
@@ -56,7 +57,7 @@ npm manifest:
       "handlebars": "^4.7.6",
       "ioredis": "^4.17.1",
       "jsonwebtoken": "^8.5.1",
-      "mime": "^2.4.6",
+      "mime": "^2.5.2",
       "mongodb": "^3.5.7",
       "multer": "^1.4.2",
       "nodemailer": "^6.4.6",
@@ -76,6 +77,7 @@ npm manifest:
       "@types/ioredis": "^4.16.2",
       "@types/jest": "^25.2.1",
       "@types/jsonwebtoken": "^8.3.9",
+      "@types/mime": "^2.0.3",
       "@types/mongodb": "^3.5.18",
       "@types/multer": "^1.4.3",
       "@types/nodemailer": "^6.4.0",
@@ -838,6 +840,11 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.1.tgz#dc488842312a7f075149312905b5e3c0b054c79d"
     integrity sha512-FwI9gX75FgVBJ7ywgnq/P7tw+/o1GUbtP0KzbtusLigAOgIgNISRK0ZPl4qertvXSIE8YbsVJueQ90cDt9YYyw==
   
+  "@types/mime@^2.0.3":
+    version "2.0.3"
+    resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.3.tgz#c893b73721db73699943bfc3653b1deb7faa4a3a"
+    integrity sha512-Jus9s4CDbqwocc5pOAnh8ShfrnMcPHuJYzVcSUU7lrh8Ni5HuIqX3oilL86p3dlTrk0LzHRCgA/GQ7uNCw6l2Q==
+  
   "@types/mongodb@^3.5.18":
     version "3.5.25"
     resolved "https://registry.yarnpkg.com/@types/mongodb/-/mongodb-3.5.25.tgz#ab187db04d79f8e3f15af236327dc9139d9d4736"
@@ -1185,10 +1192,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
     integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
   
-  aws-sdk@^2.685.0:
-    version "2.714.0"
-    resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.714.0.tgz#b248ecd68f0f8061dc95b6919ff64cc7ae1e8c97"
-    integrity sha512-5wtzueYdq8nj/7TgW64kfVUJC2lXSMb+0Iv3F4tBqzdZMAjbva82qnGGkWRFmy1jqq9Zll0tJsR1tnskkuK67g==
+  aws-sdk@^2.922.0:
+    version "2.922.0"
+    resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.922.0.tgz#4568be067dceaaeda5d2d5a7e2f22666687f0b32"
+    integrity sha512-SufbR5TTCK94Zk/xIv4v/m0MM9z+KW999XnjXOyNWGFGHP9/FArjtHtq69+a3KpohYBR1dBj8wUhVjbClmQIBA==
     dependencies:
       buffer "4.9.2"
       events "1.1.1"
@@ -1316,6 +1323,11 @@ Lockfile:
     dependencies:
       readable-stream "^2.3.5"
       safe-buffer "^5.1.1"
+  
+  bluebird@^3.5.1:
+    version "3.7.2"
+    resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
+    integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
   
   body-parser@1.19.0:
     version "1.19.0"
@@ -1787,6 +1799,15 @@ Lockfile:
     dependencies:
       cssom "~0.3.6"
   
+  csvtojson@^2.0.10:
+    version "2.0.10"
+    resolved "https://registry.yarnpkg.com/csvtojson/-/csvtojson-2.0.10.tgz#11e7242cc630da54efce7958a45f443210357574"
+    integrity sha512-lUWFxGKyhraKCW8Qghz6Z0f2l/PqB1W3AO0HKJzGIQ5JRSlR651ekJDiGJbBT4sRNNv5ddnSGVEnsxP9XRCVpQ==
+    dependencies:
+      bluebird "^3.5.1"
+      lodash "^4.17.3"
+      strip-bom "^2.0.0"
+  
   currently-unhandled@^0.4.1:
     version "0.4.1"
     resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -1961,15 +1982,15 @@ Lockfile:
     dependencies:
       webidl-conversions "^5.0.0"
   
+  dotenv@^10.0.0:
+    version "10.0.0"
+    resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
+    integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
+  
   dotenv@^6.2.0:
     version "6.2.0"
     resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.2.0.tgz#941c0410535d942c8becf28d3f357dbd9d476064"
     integrity sha512-HygQCKUBSFl8wKQZBSemMywRWcEDNidvNbjGVyZu3nbZ8qq9ubiPoGLMdRDpfSrpkkm9BXYFkpKxxFX38o/76w==
-  
-  dotenv@^8.2.0:
-    version "8.2.0"
-    resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
-    integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
   
   dynamic-dedupe@^0.3.0:
     version "0.3.0"
@@ -3922,7 +3943,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
     integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
   
-  lodash@^4.17.19:
+  lodash@^4.17.19, lodash@^4.17.3:
     version "4.17.19"
     resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.19.tgz#e48ddedbe30b3321783c5b4301fbd353bc1e4a4b"
     integrity sha512-JNvd8XER9GQX0v2qJgsaN/mzFCNA5BRe/j8JN9d+tWyGLSodKQHKFicdwNYzWwI3wjRnaKPsGj1XkBjx/F96DQ==
@@ -4056,10 +4077,10 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
     integrity sha512-x0Vn8spI+wuJ1O6S7gnbaQg8Pxh4NNHb7KSINmEWKiPE4RKOplvijn+NkmYmmRgP68mc70j2EbeTFRsrswaQeg==
   
-  mime@^2.4.6:
-    version "2.4.6"
-    resolved "https://registry.yarnpkg.com/mime/-/mime-2.4.6.tgz#e5b407c90db442f2beb5b162373d07b69affa4d1"
-    integrity sha512-RZKhC3EmpBchfTGBVb8fb+RL2cWyw/32lshnsETttkBAyAUXSGHxbEJWWRXc751DrIxG1q04b8QwMbAwkRPpUA==
+  mime@^2.5.2:
+    version "2.5.2"
+    resolved "https://registry.yarnpkg.com/mime/-/mime-2.5.2.tgz#6e3dc6cc2b9510643830e5f19d5cb753da5eeabe"
+    integrity sha512-tqkh47FzKeCPD2PUiPB6pkbMzsCasjxAfC62/Wap5qrUWcb+sFasXUC5I3gYM5iBM8v/Qpn4UK0x+j0iHyFPDg==
   
   mimic-fn@^2.1.0:
     version "2.1.0"
