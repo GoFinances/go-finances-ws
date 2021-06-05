@@ -1,0 +1,18 @@
+{
+  "type": "postgres",
+  "host": "postgres",
+  "port": 5432,
+  "username": "douglasgmsantos",
+  "password": "123456",
+  "database": "gofinance",
+  "logging": false,
+  "entities": [
+    "./src/modules/**/infra/typeorm/entities/*.ts"
+  ],
+  "migrations": [
+    "./src/shared/infra/typeorm/migrations/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "./src/shared/infra/typeorm/migrations/"
+  }
+}
