@@ -36,8 +36,11 @@ class TransactionRepository implements ITransactionRepository {
     }
   }
 
-  async findAll(id: string): Promise<Transaction[] | undefined> {
-    const transactions = await this.repository.find({
+
+  async findAll(id: string, take: number, page: number): Promise<{ transactions: Transaction[], total: number } | undefined> {
+    const skip = (page - 1) <= 0 ? 0 : (page - 1) * take;
+
+    const [transactions, total] = await this.repository.findAndCount({
       select: [
         "id",
         "title",
@@ -53,10 +56,15 @@ class TransactionRepository implements ITransactionRepository {
       },
       order: {
         created_at: "DESC"
-      }
-
+      },
+      take: take,
+      skip: skip
     });
-    return transactions;
+
+    return {
+      transactions,
+      total
+    };
   }
 
   async findByCategoryId(category_id: string, user_id: string): Promise<Transaction[] | undefined> {

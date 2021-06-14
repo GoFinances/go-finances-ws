@@ -9,13 +9,14 @@ import GetTransactionService from '@modules/transactions/services/GetTransaction
 export default class TransactionController {
 
   public async index(request: Request, response: Response): Promise<Response> {
-    const user_id = request.user.id
+    const { take, page } = request.query;
+    const user_id = request.user.id;
     const getTransactionService = container.resolve(GetTransactionService);
-    var transactions = await getTransactionService.execute({ user_id: user_id });
+    const transactions = await getTransactionService.execute({ user_id, take: Number(take), page: Number(page) });
 
     return response.json({
       success: true,
-      result: transactions
+      result: transactions,
     });
   }
 

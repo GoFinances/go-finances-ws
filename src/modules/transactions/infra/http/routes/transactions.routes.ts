@@ -16,3 +16,4 @@ transactionsRouter.delete('/:id', ensureAuthenticated, controller.delete);
 transactionsRouter.post('/import', ensureAuthenticated, upload.single('file'), controller.import);
 
 export default transactionsRouter;
+
