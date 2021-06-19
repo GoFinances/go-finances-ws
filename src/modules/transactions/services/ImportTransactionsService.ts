@@ -3,11 +3,11 @@ import path from 'path';
 import csv from 'csvtojson';
 import { container, injectable, inject } from 'tsyringe';
 
-import { IStorageProvider } from '@shared/container/providers/storage/IStorageProvider';
 
 import uploadConfig from '@config/upload';
 import Transaction from '../infra/typeorm/entities/Transaction';
 import CreateTransactionService from './CreateTransactionService';
+import { IStorageProvider } from '@shared/container/providers/StorageProvider/IStorageProvider';
 
 interface Request {
   filename: string;

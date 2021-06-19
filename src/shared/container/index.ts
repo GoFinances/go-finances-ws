@@ -1,5 +1,6 @@
 import { container } from 'tsyringe';
 
+import "@shared/container/providers";
 
 import IUserRepository from '@modules/users/repositories/IUserRepository';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
@@ -10,10 +11,8 @@ import TransactionRepository from '@modules/transactions/infra/typeorm/repositor
 import ICategoryRepository from '@modules/categories/repositories/ICategoriesRepository';
 import CategoryRepository from '@modules/categories/infra/typeorm/repositories/CategoryRepository';
 
-import { IStorageProvider } from './providers/storage/IStorageProvider';
-import { LocalStorageProvider } from './providers/storage/implementations/LocalStorageProvider';
-import { S3StorageProvider } from './providers/storage/implementations/S3StorageProvider';
-
+import { IUsersTokensRepository } from '@modules/users/repositories/IUsersTokensRepository';
+import { UsersTokensRepository } from '@modules/users/infra/typeorm/repositories/UsersTokensRepository';
 
 container.registerSingleton<ICategoryRepository>(
   'CategoryRepository',
@@ -30,12 +29,10 @@ container.registerSingleton<IUserRepository>(
   UsersRepository
 )
 
-const diskStorage = {
-  "local": LocalStorageProvider,
-  "s3": S3StorageProvider
-}
 
-container.registerSingleton<IStorageProvider>(
-  "StorageProvider",
-  diskStorage[process.env.DISK as "local" | "s3"]
-)
+container.registerSingleton<IUsersTokensRepository>(
+  "UsersTokensRepository",
+  UsersTokensRepository
+);
+
+

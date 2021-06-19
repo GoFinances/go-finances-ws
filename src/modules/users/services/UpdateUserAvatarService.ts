@@ -1,13 +1,8 @@
-import path from 'path';
-import fs from 'fs'
-
-
-import uploadConfig from '@config/upload';
 import AppError from "@shared/errors/AppError";
 import User from "../infra/typeorm/entities/User";
 import IUserRepository from "../repositories/IUserRepository";
 import { inject, injectable } from 'tsyringe';
-import { IStorageProvider } from '@shared/container/providers/storage/IStorageProvider';
+import { IStorageProvider } from '@shared/container/providers/StorageProvider/IStorageProvider';
 
 
 interface Request {
@@ -47,3 +42,4 @@ export default class UpdateUserAvatarService {
     return user;
   }
 }
+

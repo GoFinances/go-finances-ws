@@ -9,9 +9,9 @@ export default class SessionsController {
     const { email, password } = request.body;
     const authUserService = container.resolve(AuthUserService);
 
-    const { user, token } = await authUserService.execute({ email, password });
+    const { user, token, refresh_token } = await authUserService.execute({ email, password });
     delete user.password;
-    return response.json({ success: true, result: { user, token } });
+    return response.json({ success: true, result: { user, token, refresh_token } });
   }
 
   public async checkSession(request: Request, response: Response): Promise<Response> {
