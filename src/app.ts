@@ -26,14 +26,15 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     return response.status(err.statusCode).json({
       success: false,
       status: err.statusText,
-      message: err.message
+      message: `${err.message}`
     })
   }
 
   return response.status(200).json({
     success: false,
     status: "error",
-    message: `Internal server error ---> ${err}`
+    message: `Internal server error ---> ${err}`,
+    stack: err.stack
   })
 });
 

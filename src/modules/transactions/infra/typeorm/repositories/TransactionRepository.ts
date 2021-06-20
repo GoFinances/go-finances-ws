@@ -1,4 +1,4 @@
-import { EntityRepository, Repository, getRepository } from 'typeorm';
+import { EntityRepository, Repository, getRepository, Raw, Like } from 'typeorm';
 
 import ITransactionRepository from '@modules/transactions/repositories/ITransactionRepository';
 import ICreateTransactionDTO from '@modules/transactions/dtos/ICreateTransactionDTO';
@@ -14,7 +14,13 @@ class TransactionRepository implements ITransactionRepository {
     this.repository = getRepository(Transaction);
   }
 
-  public async getBalance(user_id: string): Promise<Balance> {
+  public async getBalance(
+    user_id: string,
+    filter_category: string,
+    filter_type: string,
+    dt_init: string,
+    dt_end: string
+  ): Promise<Balance> {
     var transactions = await this.repository.find({
       where: {
         user_id
@@ -37,8 +43,28 @@ class TransactionRepository implements ITransactionRepository {
   }
 
 
-  async findAll(id: string, take: number, page: number): Promise<{ transactions: Transaction[], total: number } | undefined> {
+  async findAll(
+    id: string,
+    take: number,
+    page: number,
+    filter_category: string,
+    filter_type: string,
+    dt_init: string,
+    dt_end: string
+  ): Promise<{ transactions: Transaction[], total: number } | undefined> {
     const skip = (page - 1) <= 0 ? 0 : (page - 1) * take;
+
+    var where = { user_id: id } as any;
+
+    if (Boolean(filter_category)) {
+      where["category"] = {
+        title: filter_category
+      }
+    }
+
+    if (Boolean(filter_type) && filter_type != "all") {
+      where["type"] = filter_type
+    }
 
     const [transactions, total] = await this.repository.findAndCount({
       select: [
@@ -47,13 +73,16 @@ class TransactionRepository implements ITransactionRepository {
         "type",
         "value",
         "category_id",
+        "created_at",
         "category",
-        "created_at"
       ],
-      relations: ["category"],
-      where: {
-        user_id: id
+      join: {
+        alias: "transaction",
+        innerJoinAndSelect: {
+          category: "transaction.category"
+        }
       },
+      where,
       order: {
         created_at: "DESC"
       },

@@ -9,10 +9,26 @@ import GetTransactionService from '@modules/transactions/services/GetTransaction
 export default class TransactionController {
 
   public async index(request: Request, response: Response): Promise<Response> {
-    const { take, page } = request.query;
+    const {
+      take,
+      page,
+      filterCategory,
+      filterType,
+      dtInit,
+      dtEnd
+    } = request.query;
+
     const user_id = request.user.id;
     const getTransactionService = container.resolve(GetTransactionService);
-    const transactions = await getTransactionService.execute({ user_id, take: Number(take), page: Number(page) });
+    const transactions = await getTransactionService.execute({
+      user_id,
+      take: Number(take),
+      page: Number(page),
+      filter_category: String(filterCategory),
+      filter_type: String(filterType),
+      dt_init: String(dtInit),
+      dt_end: String(dtEnd)
+    });
 
     return response.json({
       success: true,

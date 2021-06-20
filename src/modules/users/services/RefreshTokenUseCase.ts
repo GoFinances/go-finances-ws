@@ -26,45 +26,50 @@ class RefreshTokenUseCase {
   ) { }
 
   async execute(token: string): Promise<ITokenResponse> {
-    const { email, sub } = verify(token, auth.jwt.secret_refresh_token) as IPayload;
+    try {
 
-    const user_id = sub;
+      const { email, sub } = verify(token, auth.jwt.secret_refresh_token) as IPayload;
 
-    const userToken = await this.usersTokensRepository.findByUserIdAndRefreshToken(
-      user_id,
-      token
-    );
+      const user_id = sub;
 
-    if (!userToken) {
-      throw new AppError("Refresh Token does not exists!");
+      const userToken = await this.usersTokensRepository.findByUserIdAndRefreshToken(
+        user_id,
+        token
+      );
+
+      if (!userToken) {
+        throw new AppError("Refresh Token does not exists!");
+      }
+
+      await this.usersTokensRepository.deleteById(userToken.id);
+
+      const refresh_token = sign({ email }, auth.jwt.secret_refresh_token, {
+        subject: sub,
+        expiresIn: auth.jwt.expires_in_refresh_token,
+      });
+
+      const expires_date = this.dateProvider.addDays(
+        auth.jwt.expires_refresh_token_days
+      );
+
+      await this.usersTokensRepository.create({
+        expires_date,
+        refresh_token,
+        user_id,
+      });
+
+      const newToken = sign({}, auth.jwt.secret, {
+        subject: user_id,
+        expiresIn: auth.jwt.expires_in_token,
+      });
+
+      return {
+        refresh_token,
+        token: newToken,
+      };
+    } catch{
+      throw new AppError("Error validate refresh token!", 401, "SESSION_FINALIZED");
     }
-
-    await this.usersTokensRepository.deleteById(userToken.id);
-
-    const refresh_token = sign({ email }, auth.jwt.secret_refresh_token, {
-      subject: sub,
-      expiresIn: auth.jwt.expires_in_refresh_token,
-    });
-
-    const expires_date = this.dateProvider.addDays(
-      auth.jwt.expires_refresh_token_days
-    );
-
-    await this.usersTokensRepository.create({
-      expires_date,
-      refresh_token,
-      user_id,
-    });
-
-    const newToken = sign({}, auth.jwt.secret, {
-      subject: user_id,
-      expiresIn: auth.jwt.expires_in_token,
-    });
-
-    return {
-      refresh_token,
-      token: newToken,
-    };
   }
 }
 
