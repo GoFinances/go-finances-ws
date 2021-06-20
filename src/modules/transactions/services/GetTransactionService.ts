@@ -15,10 +15,10 @@ interface IRequest {
   user_id: string;
   page: number;
   take: number;
-  filter_category: string;
-  filter_type: string;
-  dt_init: string;
-  dt_end: string;
+  category_id: string;
+  type: string;
+  dt_init: number;
+  dt_end: number;
 }
 
 @injectable()
@@ -29,9 +29,9 @@ class GetTransactionService {
     private repository: ITransactionRepository
   ) { }
 
-  public async execute({ user_id, take, page, filter_category, filter_type, dt_init, dt_end }: IRequest): Promise<IResponse> {
-    const transactions = await this.repository.findAll(user_id, take, page, filter_category, filter_type, dt_init, dt_end);
-    const balance = await this.repository.getBalance(user_id, filter_category, filter_type, dt_init, dt_end);
+  public async execute({ user_id, take, page, category_id, type, dt_init, dt_end }: IRequest): Promise<IResponse> {
+    const transactions = await this.repository.findAll(user_id, take, page, category_id, type, dt_init, dt_end);
+    const balance = await this.repository.getBalance(user_id, category_id, type, dt_init, dt_end);
 
     return {
       ...

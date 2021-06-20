@@ -1,30 +1,50 @@
-import { EntityRepository, Repository, getRepository, Raw, Like } from 'typeorm';
+import { EntityRepository, Repository, getRepository, Raw, Like, ILike } from 'typeorm';
 
 import ITransactionRepository from '@modules/transactions/repositories/ITransactionRepository';
 import ICreateTransactionDTO from '@modules/transactions/dtos/ICreateTransactionDTO';
 import Transaction from '../entities/Transaction';
 import Balance from '../entities/Balance';
+import Category from '@modules/categories/infra/typeorm/entities/Category';
 
 
 @EntityRepository(Transaction)
 class TransactionRepository implements ITransactionRepository {
   private repository: Repository<Transaction>
+  private repositoryCateegory: Repository<Category>
 
   constructor() {
     this.repository = getRepository(Transaction);
+    this.repositoryCateegory = getRepository(Category);
   }
 
   public async getBalance(
     user_id: string,
-    filter_category: string,
-    filter_type: string,
-    dt_init: string,
-    dt_end: string
+    category_id: string,
+    type: string,
+    dt_init: number,
+    dt_end: number
   ): Promise<Balance> {
+
+    const where = { user_id } as any
+
+    if (Boolean(category_id)) {
+      where["category_id"] = category_id;
+    }
+
+    if (Boolean(type) && type != "all") {
+      where["type"] = type
+    }
+
+    if (Boolean(dt_init)) {
+      where["created_at"] = Raw(alias => `TO_CHAR(${alias}, 'YYYYMMDD')::int >= :dt_init`, { dt_init })
+    }
+
+    if (Boolean(dt_end)) {
+      where["created_at"] = Raw(alias => `TO_CHAR(${alias}, 'YYYYMMDD')::int <= :dt_end`, { dt_end })
+    }
+
     var transactions = await this.repository.find({
-      where: {
-        user_id
-      }
+      where
     })
 
     const income = transactions
@@ -47,23 +67,30 @@ class TransactionRepository implements ITransactionRepository {
     id: string,
     take: number,
     page: number,
-    filter_category: string,
-    filter_type: string,
-    dt_init: string,
-    dt_end: string
+    category_id: string,
+    type: string,
+    dt_init: number,
+    dt_end: number
   ): Promise<{ transactions: Transaction[], total: number } | undefined> {
-    const skip = (page - 1) <= 0 ? 0 : (page - 1) * take;
 
+    const skip = (page - 1) <= 0 ? 0 : (page - 1) * take;
     var where = { user_id: id } as any;
 
-    if (Boolean(filter_category)) {
-      where["category"] = {
-        title: filter_category
-      }
+
+    if (Boolean(category_id)) {
+      where["category_id"] = category_id;
     }
 
-    if (Boolean(filter_type) && filter_type != "all") {
-      where["type"] = filter_type
+    if (Boolean(type) && type != "all") {
+      where["type"] = type
+    }
+
+    if (Boolean(dt_init)) {
+      where["created_at"] = Raw(alias => `TO_CHAR(${alias}, 'YYYYMMDD')::int >= :dt_init`, { dt_init })
+    }
+
+    if (Boolean(dt_end)) {
+      where["created_at"] = Raw(alias => `TO_CHAR(${alias}, 'YYYYMMDD')::int <= :dt_end`, { dt_end })
     }
 
     const [transactions, total] = await this.repository.findAndCount({
@@ -74,14 +101,9 @@ class TransactionRepository implements ITransactionRepository {
         "value",
         "category_id",
         "created_at",
-        "category",
+        "category"
       ],
-      join: {
-        alias: "transaction",
-        innerJoinAndSelect: {
-          category: "transaction.category"
-        }
-      },
+      relations: ["category"],
       where,
       order: {
         created_at: "DESC"

@@ -38,7 +38,7 @@ class CreateTransactionService {
   }: Request): Promise<Transaction> {
 
     const categoryModel = await this.categoryRepository.findOne(user_id, category)
-    var balance = await this.repository.getBalance(user_id, "", "", "", "");
+    var balance = await this.repository.getBalance(user_id, "", "", 0, 0);
     if (value > balance.total && type == "outcome")
       throw new AppError("Não possível fazer uma retirada com o valor solicitado.")
 

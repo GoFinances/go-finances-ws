@@ -12,10 +12,10 @@ export default class TransactionController {
     const {
       take,
       page,
-      filterCategory,
-      filterType,
-      dtInit,
-      dtEnd
+      category_id,
+      type,
+      dt_init,
+      dt_end
     } = request.query;
 
     const user_id = request.user.id;
@@ -24,10 +24,10 @@ export default class TransactionController {
       user_id,
       take: Number(take),
       page: Number(page),
-      filter_category: String(filterCategory),
-      filter_type: String(filterType),
-      dt_init: String(dtInit),
-      dt_end: String(dtEnd)
+      category_id: String(category_id),
+      type: String(type),
+      dt_init: Number(dt_init),
+      dt_end: Number(dt_end)
     });
 
     return response.json({
