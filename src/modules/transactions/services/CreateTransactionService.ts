@@ -14,6 +14,7 @@ interface Request {
   type: "income" | "outcome";
   category: string;
   user_id: string;
+  dt_reference: number;
 }
 
 @injectable()
@@ -34,13 +35,11 @@ class CreateTransactionService {
     value,
     type,
     category,
-    user_id
+    user_id,
+    dt_reference
   }: Request): Promise<Transaction> {
 
     const categoryModel = await this.categoryRepository.findOne(user_id, category)
-    var balance = await this.repository.getBalance(user_id, "", "", 0, 0);
-    if (value > balance.total && type == "outcome")
-      throw new AppError("Não possível fazer uma retirada com o valor solicitado.")
 
     var newCategory: Category;
     if (!categoryModel) {
@@ -62,7 +61,8 @@ class CreateTransactionService {
       value,
       type,
       category_id: newCategory.id,
-      user_id
+      user_id,
+      dt_reference
     })
 
     await this.repository.save(transaction);

@@ -37,11 +37,11 @@ export default class TransactionController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { title, value, type, category } = request.body;
+    const { title, value, type, category, dt_reference } = request.body;
     const user_id = request.user.id
 
     const createTransactionService = container.resolve(CreateTransactionService);
-    await createTransactionService.execute({ title, value, type, category, user_id });
+    await createTransactionService.execute({ title, value, type, category, user_id , dt_reference: Number(dt_reference)});
 
     return response.json({ success: true, result: { value, type, category } });
   }

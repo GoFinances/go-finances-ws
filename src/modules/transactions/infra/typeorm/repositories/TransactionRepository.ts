@@ -101,7 +101,8 @@ class TransactionRepository implements ITransactionRepository {
         "value",
         "category_id",
         "created_at",
-        "category"
+        "category",
+        "dt_reference"
       ],
       relations: ["category"],
       where,

@@ -18,6 +18,9 @@ class Transaction {
   value: number;
 
   @Column()
+  dt_reference: number;
+
+  @Column()
   category_id: string;
 
   @ManyToOne(() => Category, category => category.transaction, { eager: true })
