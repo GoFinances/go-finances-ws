@@ -36,11 +36,11 @@ class TransactionRepository implements ITransactionRepository {
     }
 
     if (Boolean(dt_init)) {
-      where["created_at"] = Raw(alias => `TO_CHAR(${alias}, 'YYYYMMDD')::int >= :dt_init`, { dt_init })
+      where["dt_reference"] = Raw(alias => `${alias} >= :dt_init`, { dt_init })
     }
 
     if (Boolean(dt_end)) {
-      where["created_at"] = Raw(alias => `TO_CHAR(${alias}, 'YYYYMMDD')::int <= :dt_end`, { dt_end })
+      where["dt_reference"] = Raw(alias => `${alias} <= :dt_end`, { dt_end })
     }
 
     var transactions = await this.repository.find({
@@ -86,11 +86,11 @@ class TransactionRepository implements ITransactionRepository {
     }
 
     if (Boolean(dt_init)) {
-      where["created_at"] = Raw(alias => `TO_CHAR(${alias}, 'YYYYMMDD')::int >= :dt_init`, { dt_init })
+      where["dt_reference"] = Raw(alias => `${alias} >= :dt_init`, { dt_init })
     }
 
     if (Boolean(dt_end)) {
-      where["created_at"] = Raw(alias => `TO_CHAR(${alias}, 'YYYYMMDD')::int <= :dt_end`, { dt_end })
+      where["dt_reference"] = Raw(alias => `${alias} <= :dt_end`, { dt_end })
     }
 
     const [transactions, total] = await this.repository.findAndCount({
@@ -107,7 +107,7 @@ class TransactionRepository implements ITransactionRepository {
       relations: ["category"],
       where,
       order: {
-        created_at: "DESC"
+        dt_reference: "DESC"
       },
       take: take,
       skip: skip
