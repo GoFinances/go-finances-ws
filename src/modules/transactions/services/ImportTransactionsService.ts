@@ -36,10 +36,8 @@ class ImportTransactionsService {
     const transactions: Transaction[] = [];
 
     for (const item of csvJson) {
-      const { title, type, value, category } = item;
-      const transaction = await createTransactionService.execute({ title, value: parseFloat(value), type, category, user_id , 
-        dt_reference: Number(Intl.DateTimeFormat('pt-BR').format(new Date()).split("/").reverse().join().replace(",","").replace(",",""))
-      });
+      const { title, type, value, category, dt_reference } = item;
+      const transaction = await createTransactionService.execute({ title, value: parseFloat(value), type, category, user_id , dt_reference });
       transactions.push(transaction);
     }
 

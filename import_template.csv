@@ -1,22 +1,22 @@
-title, type, value, category
-1 - Loan, income, 1500, Others
-2 - Website Hosting, outcome, 50, Others
-3 - Ice cream, outcome, 3, Food
-4 - Loan, income, 1500, Others
-5 - Website Hosting, outcome, 50, Others
-6 - Ice cream, outcome, 3, Food
-7 - Loan, income, 1500, Others
-8 - Website Hosting, outcome, 50, Others
-9 - Ice cream, outcome, 3, Food
-10 - Loan, income, 1500, Others
-11 - Website Hosting, outcome, 50, Others
-12 - Ice cream, outcome, 3, Food
-13 - Loan, income, 1500, Others
-14 - Website Hosting, outcome, 50, Others
-15 - Ice cream, outcome, 3, Food
-16 - Loan, income, 1500, Others
-17 - Website Hosting, outcome, 50, Others
-18 - Ice cream, outcome, 3, Food
-19 - Loan, income, 1500, Others
-20 - Website Hosting, outcome, 50, Others
-21 - Ice cream, outcome, 3, Food
+title, type, value, category, dt_reference
+1 - Loan, income, 1500, Others, 20210611
+2 - Website Hosting, outcome, 50, Others, 20210612
+3 - Ice cream, outcome, 3, Food, 20210613
+4 - Loan, income, 1500, Others, 20210614
+5 - Website Hosting, outcome, 50, Others, 20210615
+6 - Ice cream, outcome, 3, Food, 20210616
+7 - Loan, income, 1500, Others, 20210617
+8 - Website Hosting, outcome, 50, Others, 20210618
+9 - Ice cream, outcome, 3, Food, 20210619
+10 - Loan, income, 1500, Others, 20210611
+11 - Website Hosting, outcome, 50, Others, 20210611
+12 - Ice cream, outcome, 3, Food, 20210611
+13 - Loan, income, 1500, Others, 20210611
+14 - Website Hosting, outcome, 50, Others, 20210611
+15 - Ice cream, outcome, 3, Food, 20210611
+16 - Loan, income, 1500, Others, 20210611
+17 - Website Hosting, outcome, 50, Others, 20210611
+18 - Ice cream, outcome, 3, Food, 20210611
+19 - Loan, income, 1500, Others, 20210611
+20 - Website Hosting, outcome, 50, Others, 20210612
+21 - Ice cream, outcome, 3, Food, 20210612
