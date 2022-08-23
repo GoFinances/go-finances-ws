@@ -1,16 +1,23 @@
-import { EntityRepository, Repository, getRepository, Raw, Like, ILike } from 'typeorm';
+import {
+  EntityRepository,
+  Repository,
+  getRepository,
+  Raw,
+  Like,
+  ILike,
+} from 'typeorm';
 
 import ITransactionRepository from '@modules/transactions/repositories/ITransactionRepository';
 import ICreateTransactionDTO from '@modules/transactions/dtos/ICreateTransactionDTO';
+import Category from '@modules/categories/infra/typeorm/entities/Category';
 import Transaction from '../entities/Transaction';
 import Balance from '../entities/Balance';
-import Category from '@modules/categories/infra/typeorm/entities/Category';
-
 
 @EntityRepository(Transaction)
 class TransactionRepository implements ITransactionRepository {
-  private repository: Repository<Transaction>
-  private repositoryCateegory: Repository<Category>
+  private repository: Repository<Transaction>;
+
+  private repositoryCateegory: Repository<Category>;
 
   constructor() {
     this.repository = getRepository(Transaction);
@@ -22,46 +29,50 @@ class TransactionRepository implements ITransactionRepository {
     category_id: string,
     type: string,
     dt_init: number,
-    dt_end: number
+    dt_end: number,
   ): Promise<Balance> {
+    const where = { user_id } as any;
 
-    const where = { user_id } as any
-
-    if (Boolean(category_id)) {
-      where["category_id"] = category_id;
+    if (category_id) {
+      where.category_id = category_id;
     }
 
-    if (Boolean(type) && type != "all") {
-      where["type"] = type
+    if (Boolean(type) && type !== 'all') {
+      where.type = type;
     }
 
-    if (Boolean(dt_init)) {
-      where["dt_reference"] = Raw(alias => `${alias} >= :dt_init`, { dt_init })
+    if (dt_init) {
+      where.dt_reference = Raw(alias => `${alias} >= :dt_init`, { dt_init });
     }
 
-    if (Boolean(dt_end)) {
-      where["dt_reference"] = Raw(alias => `${alias} <= :dt_end`, { dt_end })
+    if (dt_end) {
+      where.dt_reference = Raw(alias => `${alias} <= :dt_end`, { dt_end });
     }
 
-    var transactions = await this.repository.find({
-      where
-    })
+    const transactions = await this.repository.find({
+      where,
+    });
 
     const income = transactions
-      .filter(transaction => transaction.type == "income")
-      .reduce((total, transaction) => Number(transaction.value) + Number(total), 0);
+      .filter(transaction => transaction.type === 'income')
+      .reduce(
+        (total, transaction) => Number(transaction.value) + Number(total),
+        0,
+      );
 
     const outcome = transactions
-      .filter(transaction => transaction.type == "outcome")
-      .reduce((total, transaction) => Number(transaction.value) + Number(total), 0);
+      .filter(transaction => transaction.type == 'outcome')
+      .reduce(
+        (total, transaction) => Number(transaction.value) + Number(total),
+        0,
+      );
 
     return {
       income: Number(income),
       outcome: Number(outcome),
-      total: (income - outcome)
-    }
+      total: income - outcome,
+    };
   }
-
 
   async findAll(
     id: string,
@@ -70,91 +81,96 @@ class TransactionRepository implements ITransactionRepository {
     category_id: string,
     type: string,
     dt_init: number,
-    dt_end: number
-  ): Promise<{ transactions: Transaction[], total: number } | undefined> {
+    dt_end: number,
+  ): Promise<{ transactions: Transaction[]; total: number } | undefined> {
+    const skip = page - 1 <= 0 ? 0 : (page - 1) * take;
+    const where = { user_id: id } as any;
 
-    const skip = (page - 1) <= 0 ? 0 : (page - 1) * take;
-    var where = { user_id: id } as any;
 
-
-    if (Boolean(category_id)) {
-      where["category_id"] = category_id;
+    if (category_id) {
+      where.category_id = category_id;
     }
 
-    if (Boolean(type) && type != "all") {
-      where["type"] = type
+    if (Boolean(type) && type !== 'all') {
+      where.type = type;
     }
 
-    if (Boolean(dt_init)) {
-      where["dt_reference"] = Raw(alias => `${alias} >= :dt_init`, { dt_init })
+    if (dt_init) {
+      where.dt_reference = Raw(alias => `${alias} >= :dt_init`, { dt_init });
     }
 
-    if (Boolean(dt_end)) {
-      where["dt_reference"] = Raw(alias => `${alias} <= :dt_end`, { dt_end })
+    if (dt_end) {
+      where.dt_reference = Raw(alias => `${alias} <= :dt_end`, { dt_end });
     }
 
     const [transactions, total] = await this.repository.findAndCount({
       select: [
-        "id",
-        "title",
-        "type",
-        "value",
-        "category_id",
-        "created_at",
-        "category",
-        "dt_reference"
+        'id',
+        'title',
+        'type',
+        'value',
+        'category_id',
+        'created_at',
+        'category',
+        'dt_reference',
       ],
-      relations: ["category"],
+      relations: ['category'],
       where,
       order: {
-        dt_reference: "DESC"
+        dt_reference: 'DESC',
       },
-      take: take,
-      skip: skip
+      take,
+      skip,
     });
 
     return {
       transactions,
-      total
+      total,
     };
   }
 
-  async findByCategoryId(category_id: string, user_id: string): Promise<Transaction[] | undefined> {
+  async findByCategoryId(
+    category_id: string,
+    user_id: string,
+  ): Promise<Transaction[] | undefined> {
     const transactions = await this.repository.find({
       select: [
-        "id",
-        "title",
-        "type",
-        "value",
-        "category_id",
-        "category",
-        "created_at"
+        'id',
+        'title',
+        'type',
+        'value',
+        'category_id',
+        'category',
+        'created_at',
       ],
-      relations: ["category"],
+      relations: ['category'],
       where: {
-        user_id: user_id,
-        category_id
+        user_id,
+        category_id,
       },
       order: {
-        created_at: "DESC"
-      }
+        created_at: 'DESC',
+      },
     });
 
     return transactions;
   }
 
-  async findById(id: string, user_id: string): Promise<Transaction | undefined> {
+  async findById(
+    id: string,
+    user_id: string,
+  ): Promise<Transaction | undefined> {
     const transaction = await this.repository.findOne(id, {
       where: {
-        user_id
-      }
+        user_id,
+      },
     });
     return transaction;
   }
 
   async findOne(email: string): Promise<Transaction | undefined> {
     const transaction = await this.repository.findOne({
-      where: { email }
+      where: { email },
     });
     return transaction;
   }

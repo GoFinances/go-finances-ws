@@ -13,10 +13,9 @@ export default class UsersController {
       name, email, password
     })
 
-    delete user.password;
     return response.json({
       success: true,
-      result: user
+      result: user.id
     });
   }
 
