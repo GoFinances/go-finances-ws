@@ -5,8 +5,31 @@ import CreateTransactionService from '@modules/transactions/services/CreateTrans
 import DeleteTransactionService from '@modules/transactions/services/DeleteTransactionService';
 import ImportTransactionsService from '@modules/transactions/services/ImportTransactionsService';
 import GetTransactionService from '@modules/transactions/services/GetTransactionService';
+import GetBalanceService from '@modules/transactions/services/GetBalanceService';
 
 export default class TransactionController {
+  public async balance(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
+    const { category_id, type, dt_init, dt_end } = request.query;
+
+    const user_id = request.user.id;
+    const service = container.resolve(GetBalanceService);
+    const balance = await service.execute({
+      user_id,
+      category_id: category_id ? String(category_id) : category_id,
+      type: String(type),
+      dt_init: Number(dt_init),
+      dt_end: Number(dt_end),
+    });
+
+    return response.json({
+      success: true,
+      result: balance,
+    });
+  }
+
   public async index(request: Request, response: Response): Promise<Response> {
     const { take, page, category_id, type, dt_init, dt_end } = request.query;
 
@@ -17,7 +40,7 @@ export default class TransactionController {
       take: Number(take),
       page: Number(page),
       category_id: category_id ? String(category_id) : category_id,
-      type: String(type),
+      type: type ? String(type) : type,
       dt_init: Number(dt_init),
       dt_end: Number(dt_end),
     });

@@ -34,7 +34,7 @@ class GetTransactionService {
     user_id,
     take,
     page,
-    category_id = null,
+    category_id = 'all',
     type = 'all',
     dt_init,
     dt_end,

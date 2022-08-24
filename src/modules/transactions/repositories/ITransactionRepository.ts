@@ -8,14 +8,14 @@ export default interface ITransactionRepository {
     id: string,
     take: number,
     page: number,
-    category_id: string,
+    category_id: string | null,
     type: string,
     dt_init: number,
     dt_end: number,
   ): Promise<{ transactions: Transaction[]; total: number } | undefined>;
   findById(id: string, user_id: string): Promise<Transaction | undefined>;
   findByCategoryId(
-    category_id: string,
+    category_id: string | null,
     user_id: string,
   ): Promise<Transaction[] | undefined>;
   findOne(email: string, user_id: string): Promise<Transaction | undefined>;
@@ -23,7 +23,7 @@ export default interface ITransactionRepository {
   save(transaction: Transaction): Promise<Transaction>;
   getBalance(
     user_id: string,
-    category_id: string,
+    category_id: string | null,
     type: string,
     dt_init: number,
     dt_end: number,

@@ -18,7 +18,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.use('/files', express.static(uploadConfig.directory))
+app.use('/files', express.static(uploadConfig.directory));
 app.use(routes);
 
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
@@ -26,18 +26,16 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     return response.status(err.statusCode).json({
       success: false,
       status: err.statusText,
-      message: `${err.message}`
-    })
+      message: `${err.message}`,
+    });
   }
 
-  return response.status(200).json({
+  return response.status(500).json({
     success: false,
-    status: "error",
+    status: 'error',
     message: `Internal server error ---> ${err}`,
-    stack: err.stack
-  })
+    stack: err.stack,
+  });
 });
 
-
 export default app;
-

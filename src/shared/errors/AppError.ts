@@ -1,9 +1,15 @@
 export default class AppError {
   public readonly message: string;
+
   public readonly statusCode: number;
+
   public readonly statusText: string;
 
-  constructor(message: string, statusCode = 200, statusText: string = "GENERIC_ERROR_CODE") {
+  constructor(
+    message: string,
+    statusCode = 200,
+    statusText = 'GENERIC_ERROR_CODE',
+  ) {
     this.message = message;
     this.statusCode = statusCode;
     this.statusText = statusText;

@@ -1,11 +1,4 @@
-import {
-  EntityRepository,
-  Repository,
-  getRepository,
-  Raw,
-  Like,
-  ILike,
-} from 'typeorm';
+import { EntityRepository, Repository, getRepository, Raw } from 'typeorm';
 
 import ITransactionRepository from '@modules/transactions/repositories/ITransactionRepository';
 import ICreateTransactionDTO from '@modules/transactions/dtos/ICreateTransactionDTO';
@@ -33,11 +26,11 @@ class TransactionRepository implements ITransactionRepository {
   ): Promise<Balance> {
     const where = { user_id } as any;
 
-    if (category_id) {
+    if (category_id && category_id !== 'all') {
       where.category_id = category_id;
     }
 
-    if (Boolean(type) && type !== 'all') {
+    if (type && type !== 'all') {
       where.type = type;
     }
 
@@ -86,12 +79,11 @@ class TransactionRepository implements ITransactionRepository {
     const skip = page - 1 <= 0 ? 0 : (page - 1) * take;
     const where = { user_id: id } as any;
 
-
-    if (category_id) {
+    if (category_id && category_id !== 'all') {
       where.category_id = category_id;
     }
 
-    if (Boolean(type) && type !== 'all') {
+    if (type && type !== 'all') {
       where.type = type;
     }
 
