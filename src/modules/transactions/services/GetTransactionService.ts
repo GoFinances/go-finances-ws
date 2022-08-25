@@ -17,7 +17,7 @@ interface IRequest {
   user_id: string;
   page: number;
   take: number;
-  category_id: string | null;
+  category_id: string[];
   type: string;
   dt_init: number;
   dt_end: number;
@@ -34,7 +34,7 @@ class GetTransactionService {
     user_id,
     take,
     page,
-    category_id = 'all',
+    category_id,
     type = 'all',
     dt_init,
     dt_end,

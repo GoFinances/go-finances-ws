@@ -19,15 +19,20 @@ class TransactionRepository implements ITransactionRepository {
 
   public async getBalance(
     user_id: string,
-    category_id: string,
+    category_id: string[],
     type: string,
     dt_init: number,
     dt_end: number,
   ): Promise<Balance> {
     const where = { user_id } as any;
 
-    if (category_id && category_id !== 'all') {
-      where.category_id = category_id;
+    if (category_id.length > 0) {
+      where.category_id = Raw(
+        alias =>
+          `${alias} IN (${category_id
+            .map(category => `'${category}'`)
+            .join()})`,
+      );
     }
 
     if (type && type !== 'all') {
@@ -71,7 +76,7 @@ class TransactionRepository implements ITransactionRepository {
     id: string,
     take: number,
     page: number,
-    category_id: string,
+    category_id: string[],
     type: string,
     dt_init: number,
     dt_end: number,
@@ -79,8 +84,13 @@ class TransactionRepository implements ITransactionRepository {
     const skip = page - 1 <= 0 ? 0 : (page - 1) * take;
     const where = { user_id: id } as any;
 
-    if (category_id && category_id !== 'all') {
-      where.category_id = category_id;
+    if (category_id.length > 0) {
+      where.category_id = Raw(
+        alias =>
+          `${alias} IN (${category_id
+            .map(category => `'${category}'`)
+            .join()})`,
+      );
     }
 
     if (type && type !== 'all') {
@@ -110,6 +120,7 @@ class TransactionRepository implements ITransactionRepository {
       where,
       order: {
         dt_reference: 'DESC',
+        created_at: 'DESC',
       },
       take,
       skip,

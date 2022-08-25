@@ -8,7 +8,7 @@ export default interface ITransactionRepository {
     id: string,
     take: number,
     page: number,
-    category_id: string | null,
+    category_id: string[],
     type: string,
     dt_init: number,
     dt_end: number,
@@ -23,7 +23,7 @@ export default interface ITransactionRepository {
   save(transaction: Transaction): Promise<Transaction>;
   getBalance(
     user_id: string,
-    category_id: string | null,
+    category_id: string[],
     type: string,
     dt_init: number,
     dt_end: number,

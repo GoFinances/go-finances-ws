@@ -12,3 +12,7 @@ docker --version
 docker-compose up
 ```
 
+3. Acessando a base (opcional):
+```
+psql -h "host" -p "port" -d "database" -U "user" -W
+```

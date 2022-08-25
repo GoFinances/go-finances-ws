@@ -12,7 +12,7 @@ interface IResponse {
 
 interface IRequest {
   user_id: string;
-  category_id: string | null;
+  category_id: string[];
   type: string;
   dt_init: number;
   dt_end: number;

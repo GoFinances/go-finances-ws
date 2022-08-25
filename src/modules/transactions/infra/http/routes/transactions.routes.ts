@@ -9,7 +9,6 @@ const upload = multer(uploadConfig);
 const transactionsRouter = Router();
 const controller = new TransactionsController();
 
-transactionsRouter.get('/balance', ensureAuthenticated, controller.balance);
 transactionsRouter.get('/', ensureAuthenticated, controller.index);
 transactionsRouter.post('/', ensureAuthenticated, controller.create);
 transactionsRouter.delete('/:id', ensureAuthenticated, controller.delete);
