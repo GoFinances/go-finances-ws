@@ -1,11 +1,18 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne, JoinColumn } from "typeorm";
-import Transaction from "@modules/transactions/infra/typeorm/entities/Transaction";
-import User from "@modules/users/infra/typeorm/entities/User";
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import Transaction from '@modules/transactions/infra/typeorm/entities/Transaction';
+import User from '@modules/users/infra/typeorm/entities/User';
 
-
-@Entity("categories")
+@Entity('categories')
 class Category {
-
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -24,7 +31,7 @@ class Category {
   @OneToMany(() => Transaction, transaction => transaction.category)
   transaction: Transaction;
 
-  @ManyToOne(() => User, user => user.transaction, { eager: true })
+  @ManyToOne(() => User, user => user.transaction)
   @JoinColumn({ name: 'user_id' })
   user: User;
 
