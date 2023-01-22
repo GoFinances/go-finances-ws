@@ -58,7 +58,7 @@ class CreateTransactionService {
 
     const transaction = await this.repository.create({
       title,
-      value,
+      value: type === 'outcome' ? value * -1 : value,
       type,
       category_id: newCategory.id,
       user_id,
